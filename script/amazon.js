@@ -1,4 +1,4 @@
-const product = [{
+/* const product = [{
    image :'images/products/athletic-cotton-socks-6-pairs.jpg' ,
    name :  'Black and Gray Athletic Cotton Socks - 6 Pairs',
    rating : {
@@ -24,11 +24,18 @@ priceCents : 2095
         count : 56
     },
     priceCents : 799
-}
-
-];
-
-
+},
+{
+  image : 'images/products\black-2-slot-toaster.jpg',
+  name : 'black-2-slot-toaster',
+  rating : {
+    stars : 5,
+    count : 2197,
+  },
+  priceCents : 1899,
+}];  */
+ 
+//the above mentioned code is before we added all the elements to the project...
 
 
 let productHTML = '';
@@ -53,7 +60,7 @@ product.forEach((product) => {
           </div>
 
           <div class="product-price">
-           ${(product.priceCents/100).toFixed(2)}
+           $${(product.priceCents/100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
