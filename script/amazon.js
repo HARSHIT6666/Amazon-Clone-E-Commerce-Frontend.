@@ -126,7 +126,16 @@ document.querySelectorAll('.js-add-to-cart')
 
  }
 
- 
- console.log(cart);
+let cartQunatity = 0 ;
+ cart.forEach((item)=>{
+  cartQunatity+=item.quantity
+});
+
+document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
+
+//  console.log(cartQunatity);
+//  console.log(cart);
+
+
   });
 })
