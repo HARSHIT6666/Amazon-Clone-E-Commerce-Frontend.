@@ -37,6 +37,8 @@ priceCents : 2095
  
 //the above mentioned code is before we added all the elements to the project...
 
+import { cart } from "../data/cart.js";
+import { product} from "../data/products.js";
 
 let productHTML = '';
 product.forEach((product) => {
