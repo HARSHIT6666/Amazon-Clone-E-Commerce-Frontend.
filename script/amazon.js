@@ -80,7 +80,7 @@ product.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart msg-added-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -140,6 +140,13 @@ let cartQunatity = 0 ;
 });
 
 document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
+
+ const addedPopup = document.querySelector(`.msg-added-${productId}`);
+addedPopup.classList.add('added-to-cart-visible');
+setInterval(function(){
+   const addedPopup = document.querySelector(`.msg-added-${productId}`);
+addedPopup.classList.remove('added-to-cart-visible');
+},1000);
 
 
 //  console.log(cartQunatity);

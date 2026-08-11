@@ -656,5 +656,21 @@ const product = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id : "bc2847e33-5323-403f-b7cf-57fde044a955",
+    image : "images/products/umbrella.jpg",
+    name : "Umbrella",
+    rating : {
+      stars : 4,
+      count : 34 
+    }, 
+    priceCents : 2390,
+    keywords :[
+      "umbrella",
+      "raincover",
+      "rain"
+    ]
+
   }
 ];
