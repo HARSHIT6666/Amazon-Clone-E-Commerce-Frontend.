@@ -37,7 +37,7 @@ priceCents : 2095
  
 //the above mentioned code is before we added all the elements to the project...
 
-import { cart } from "../data/cart.js";
+import { cart , addtocart} from "../data/cart.js";
 import { product} from "../data/products.js";
 
 let productHTML = '';
@@ -99,18 +99,55 @@ product.forEach((product) => {
 
 // console.log(productHTML);
 
+// this below function is moved to cart.js...
+
+/*function addtocart(productId){
+let matchingItem;
+
+ cart.forEach((cartItem)=>{
+  if(productId === cartItem.productId){
+    matchingItem=cartItem;
+  }
+ });
+
+ const QuantitySelector =document.querySelector(`.js-quantity-selector-${productId}`);
+ const finalSelectedQuantity = Number(QuantitySelector.value);
+
+ if(matchingItem){
+  matchingItem.quantity +=finalSelectedQuantity;
+ }else{
+  cart.push({
+  productId  : productId,
+  quantity : finalSelectedQuantity
+
+ });
+
+ }
+}*/
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
+function updatecartqunatity(){
+  let cartQunatity = 0 ;
+ cart.forEach((cartItem)=>{
+  cartQunatity+=cartItem.quantity
+});
+
+
+document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
+};
 
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
   button.addEventListener('click',() =>{
   //  console.log( button.dataset.productName);
  const productId =  button.dataset.productId;//this provide the product name which is added to the cart..
+addtocart(productId);
+ updatecartqunatity();
 
 
  //the below code mention that if we add an element twice it will not create an extra object ,  it will just add one more quantity ..
- let matchingItem;
+ //the below code is also converted into function to organised the code..
+ /*let matchingItem;
 
  cart.forEach((item)=>{
   if(productId === item.productId){
@@ -132,16 +169,16 @@ document.querySelectorAll('.js-add-to-cart')
 
  });
 
- }
+ }*/
 
 
-
-let cartQunatity = 0 ;
+//the below code is also converted into function to organised the code..
+/*let cartQunatity = 0 ;
  cart.forEach((item)=>{
   cartQunatity+=item.quantity
 });
 
-document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
+document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;*/
 
  const addedPopup = document.querySelector(`.msg-added-${productId}`);
 addedPopup.classList.add('added-to-cart-visible');
