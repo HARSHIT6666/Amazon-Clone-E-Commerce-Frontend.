@@ -195,3 +195,6 @@ addedPopup.classList.remove('added-to-cart-visible');
 
   });
 })
+
+
+document.querySelector('js-cart-quantity').innerHTML = `${updatecartqunatity()}`;
