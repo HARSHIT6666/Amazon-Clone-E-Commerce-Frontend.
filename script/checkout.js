@@ -1,7 +1,7 @@
 import { cart } from "../data/cart.js";
 import { product } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-import { removefromcart ,updateQuantity } from "../data/cart.js";
+import { removefromcart ,updateQuantity , updateDeliveryOption } from "../data/cart.js";
 import { deliveryOptions } from "../data/deliveryOption.js";
 
 //  below code represent days external libraries
@@ -95,14 +95,16 @@ deliveryOptions.forEach((deliveryOption)=>{
   );
   const dateString =  deliveryDate.format('dddd, MMMM D');
 
-  const priceString = delivery.priceCents === 0
+  const priceString = deliveryOption.priceCents === 0
   ? 'FREE'
   : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
   const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
   html +=
   `
-  <div class="delivery-option">
+  <div class="delivery-option js-delivery-option"
+                  data-product-id="${matchingProduct.id}"
+                  data-delivery-option-id="${deliveryOption.id}">
                   <input type="radio"
                 ${isChecked ? 'checked':''}
                     class="delivery-option-input"
@@ -178,8 +180,14 @@ link.addEventListener('click',()=>{
 });
 });
 
-
-
-  
+document.querySelectorAll('.js-delivery-option')
+.forEach((element)=>{
+  element.addEventListener('click' , ()=>{
+    const {productId , deliveryOptionId} = element.dataset; //shorthand property for below two lines
+    // const productId = element.dataset.productId;
+    // const deliveryOptionId = element.dataset.deliveryOptionId;
+  updateDeliveryOption(productId, deliveryOptionId);
+  });
+});
   
 
