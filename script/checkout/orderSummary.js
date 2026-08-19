@@ -1,8 +1,9 @@
 import { cart } from "../../data/cart.js";
-import { product } from "../../data/products.js";
+import { product ,getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { removefromcart ,updateQuantity , updateDeliveryOption } from "../../data/cart.js";
-import { deliveryOptions } from "../../data/deliveryOption.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
+
 
 //  below code represent days external libraries
   const today = dayjs();
@@ -15,20 +16,13 @@ import { deliveryOptions } from "../../data/deliveryOption.js";
 
     cart.forEach((cartItem)=>{
         const productId = cartItem.productId;
-        let matchingProduct;
-        product.forEach((product)=>{
-            if(product.id === productId){
-                matchingProduct = product;
-            }
-        });
+
+        const matchingProduct = getProduct(productId);
 
         const deliveryOptionId= cartItem.deliveryOptionId;
-        let deliveryOption;
-        deliveryOptions.forEach((option)=>{
-          if(option.id === deliveryOptionId){
-            deliveryOption = option;
-          }
-        });
+
+        const deliveryOption =getDeliveryOption(deliveryOptionId)
+
           const today =dayjs();
         const deliveryDate = today.add(
           deliveryOption.deliveryDays,'days'
