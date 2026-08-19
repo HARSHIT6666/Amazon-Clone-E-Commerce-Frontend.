@@ -3,12 +3,13 @@ import { product ,getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { removefromcart ,updateQuantity , updateDeliveryOption } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 
 //  below code represent days external libraries
-  const today = dayjs();
-  const delivery = today.add(7 , 'days');
-  console.log(delivery.format('dddd, MMMM D'));
+  // const today = dayjs();
+  // const delivery = today.add(7 , 'days');
+  // console.log(delivery.format('dddd, MMMM D'));
 
    export function renderOrderSummary(){
 
@@ -131,6 +132,8 @@ import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js
 
     const container =  document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
+
+    renderPaymentSummary();
     
     updateCartQuantity();
       })
@@ -184,6 +187,7 @@ import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js
         // const deliveryOptionId = element.dataset.deliveryOptionId;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
       });
     });
       
