@@ -19,13 +19,21 @@
     const taxCents = totalBeforeTaxCents * 0.1;
     const TotalCents = totalBeforeTaxCents + taxCents;
 
+     let cartQunatity = 0 ;
+    cart.forEach((cartItem)=>{
+      cartQunatity+=cartItem.quantity
+    
+    });
+
+
+
     const paymentSummaryHTML = `
         <div class="payment-summary-title">
                 Order Summary
             </div>
 
             <div class="payment-summary-row">
-                <div>Items (3):</div>
+                <div>Items (${cartQunatity}):</div>
                 <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
             </div>
 

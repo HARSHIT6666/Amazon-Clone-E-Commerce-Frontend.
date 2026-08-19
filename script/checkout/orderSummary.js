@@ -4,6 +4,7 @@ import { formatCurrency } from "../utils/money.js";
 import { removefromcart ,updateQuantity , updateDeliveryOption } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckOutHeader } from "./checkOutHeader.js";
 
 
 //  below code represent days external libraries
@@ -132,7 +133,7 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 
     const container =  document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
-
+        renderCheckOutHeader();
     renderPaymentSummary();
     
     updateCartQuantity();
