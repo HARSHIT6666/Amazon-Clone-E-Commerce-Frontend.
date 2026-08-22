@@ -30,8 +30,29 @@
   getPrice(){
      return `$${formatCurrency(this.priceCents)}`
   }
- }
 
+  extrainfoHTML(){
+    return ``;
+  }
+ };
+
+class clothing extends Product{
+sizeChartLink;
+
+constructor(productDetails){
+  super(productDetails);
+  this.sizeChartLink = productDetails.sizeChartLink;
+}
+
+extrainfoHTML(){
+  return `
+  <a href = "${this.sizeChartLink}" target= "_blank">
+  Size Chart
+  </a>
+  `;
+}
+
+}
 
  export const product = [
 {
@@ -692,23 +713,10 @@
       "mens"
     ]
   },
-  {
-    id : "bc2847e33-5323-403f-b7cf-57fde044a955",
-    image : "images/products/umbrella.jpg",
-    name : "Umbrella",
-    rating : {
-      stars : 4,
-      count : 34 
-    }, 
-    priceCents : 2390,
-    keywords :[
-      "umbrella",
-      "raincover",
-      "rain"
-    ]
-
-  }
 ].map((productDetails)=>{
+  if(productDetails.type === 'clothing'){
+    return new clothing(productDetails);
+  }
    return new Product(productDetails);
 
 });
