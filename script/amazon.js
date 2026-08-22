@@ -56,14 +56,14 @@ product.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars*10}.png">
+              src="${product.getStarsUrl()}">
             <div class="product-rating-count link-primary">
              ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-           $${formatCurrency(product.priceCents)}
+          ${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
@@ -131,11 +131,15 @@ function updatecartqunatity(){
   let cartQunatity = 0 ;
  cart.forEach((cartItem)=>{
   cartQunatity+=cartItem.quantity
+
 });
 
 
 document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
+
+
 };
+ updatecartqunatity();
 
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
@@ -197,4 +201,4 @@ addedPopup.classList.remove('added-to-cart-visible');
 })
 
 
-document.querySelector('js-cart-quantity').innerHTML = `${updatecartqunatity()}`;
+// document.querySelector('.js-cart-quantity').innerHTML = `${updatecartqunatity()}`;
