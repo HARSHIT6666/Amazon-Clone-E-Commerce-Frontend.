@@ -1,8 +1,14 @@
- function Cart(localStoragekey){
- const cart =  {
-    cartItems  : undefined,
-    loadFromStorage(){
-   this.cartItems = JSON.parse(localStorage.getItem(localStoragekey));
+ class Cart{
+ cartItems;
+ localStoragekey;
+
+ constructor(localStoragekey){
+    this.localStoragekey = localStoragekey;
+       this.loadFromStorage();
+ 
+ }
+ loadFromStorage(){
+   this.cartItems = JSON.parse(localStorage.getItem(this.localStoragekey));
  if(!this.cart){
 
  this.cart = [{
@@ -16,14 +22,13 @@ quantity: 1,
  deliveryOptionId :'2'
  }
 ];
- }},
+ }}
 
+ saveToStorage(){
+ this.localStorage.setItem(localStoragekey,JSON.stringify(this.cart));
+}
 
-  saveToStorage(){
-  localStorage.setItem(localStoragekey,JSON.stringify(this.cart));
-},
-
- addtocart(productId){
+addtocart(productId){
  let matchingItem;
 
  this.cart.forEach((cartItem)=>{
@@ -47,9 +52,9 @@ quantity: 1,
 
  }
  this.saveToStorage();
-}, 
+}
 
- removefromcart(productId){
+removefromcart(productId){
   const newCart = [];
   this.cart.forEach((cartItem)=>{
     if(cartItem.productId !== productId){
@@ -58,9 +63,9 @@ quantity: 1,
   })
   this.cart =newCart;
   this.saveToStorage();
-}, 
+}
 
- updateQuantity(productId , newQuantity){
+updateQuantity(productId , newQuantity){
   let matchingItem;
   this.cart.forEach((cartItem)=>{
   if(productId === cartItem.productId){
@@ -69,9 +74,9 @@ quantity: 1,
  });
  matchingItem.quantity = newQuantity;
  this.saveToStorage();
-},
+}
 
- updateDeliveryOption(productId ,deliveryOptionId){
+updateDeliveryOption(productId ,deliveryOptionId){
    let matchingItem;
   this.cart.forEach((cartItem)=>{
   if(productId === cartItem.productId){
@@ -81,19 +86,21 @@ quantity: 1,
 matchingItem.deliveryOptionId =deliveryOptionId;
 this.saveToStorage();
 }
- };
- return cart;
+
  }
+ 
+
+ const cart =  new Cart('cart-oop');
+ const businessCart =  new Cart('cart-business');
+
 
  
- const cart = Cart('cart-oop');
- const businessCart = Cart('cart-business');
-
- cart.loadFromStorage();
-businessCart.loadFromStorage();
 
  console.log(cart);
  console.log(businessCart);
+
+
+ console.log(businessCart instanceof Cart);
 
  
 
