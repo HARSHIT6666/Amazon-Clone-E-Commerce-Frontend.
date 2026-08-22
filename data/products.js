@@ -58,6 +58,30 @@ extrainfoHTML(){
  console.log(date);
 console.log( date.toLocaleTimeString());  */
 
+
+
+  // NOW I AM TRYING TO GET THE PRODUCT FROM BACKEND..
+  export let product =[];
+  export  function loadProducts(func){
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load' , ()=>{
+    product = JSON.parse(xhr.response).map((productDetails)=>{
+  if(productDetails.type === 'clothing'){
+    return new clothing(productDetails);
+  }
+   return new Product(productDetails);
+
+});
+console.log('load product ');
+func();
+    });
+    xhr.open('GET', 'https://supersimplebackend.dev/products');
+    xhr.send();
+  }
+
+
+
+/*
  export const product = [
 {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -724,3 +748,4 @@ console.log( date.toLocaleTimeString());  */
    return new Product(productDetails);
 
 });
+*/

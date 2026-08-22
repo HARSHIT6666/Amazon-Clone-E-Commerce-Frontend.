@@ -38,169 +38,173 @@ priceCents : 2095
 //the above mentioned code is before we added all the elements to the project...
 
 import { cart , addtocart} from "../data/cart.js";
-import { product} from "../data/products.js";
+import { product , loadProducts} from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-let productHTML = '';
-product.forEach((product) => {
-    productHTML += 
-       `<div class="product-container">
-          <div class="product-image-container">
-            <img class="product-image"
-              src="${product.image}">
-          </div>
-           
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
+loadProducts(renderProductsGrid);
 
-          <div class="product-rating-container">
-            <img class="product-rating-stars"
-              src="${product.getStarsUrl()}">
-            <div class="product-rating-count link-primary">
-             ${product.rating.count}
-            </div>
-          </div>
+function renderProductsGrid(){
 
-          <div class="product-price">
-          ${product.getPrice()}
-          </div>
+    let productHTML = '';
+    product.forEach((product) => {
+        productHTML += 
+          `<div class="product-container">
+              <div class="product-image-container">
+                <img class="product-image"
+                  src="${product.image}">
+              </div>
+              
+              <div class="product-name limit-text-to-2-lines">
+                ${product.name}
+              </div>
 
-          <div class="product-quantity-container">
-            <select class="js-quantity-selector-${product.id}">
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
+              <div class="product-rating-container">
+                <img class="product-rating-stars"
+                  src="${product.getStarsUrl()}">
+                <div class="product-rating-count link-primary">
+                ${product.rating.count}
+                </div>
+              </div>
 
-          ${product.extrainfoHTML()}
+              <div class="product-price">
+              ${product.getPrice()}
+              </div>
 
-          <div class="product-spacer"></div>
+              <div class="product-quantity-container">
+                <select class="js-quantity-selector-${product.id}">
+                  <option selected value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
 
-          <div class="added-to-cart msg-added-${product.id}">
-            <img src="images/icons/checkmark.png">
-            Added
-          </div>
+              ${product.extrainfoHTML()}
 
-          <button class="add-to-cart-button button-primary js-add-to-cart" 
-          data-product-Id= "${product.id}"
-          >
-            Add to Cart
-          </button>
-        </div>`;
-        
+              <div class="product-spacer"></div>
 
-});
+              <div class="added-to-cart msg-added-${product.id}">
+                <img src="images/icons/checkmark.png">
+                Added
+              </div>
 
-// console.log(productHTML);
+              <button class="add-to-cart-button button-primary js-add-to-cart" 
+              data-product-Id= "${product.id}"
+              >
+                Add to Cart
+              </button>
+            </div>`;
+            
 
-// this below function is moved to cart.js...
+    });
 
-/*function addtocart(productId){
-let matchingItem;
+    // console.log(productHTML);
 
- cart.forEach((cartItem)=>{
-  if(productId === cartItem.productId){
-    matchingItem=cartItem;
-  }
- });
+    // this below function is moved to cart.js...
 
- const QuantitySelector =document.querySelector(`.js-quantity-selector-${productId}`);
- const finalSelectedQuantity = Number(QuantitySelector.value);
+    /*function addtocart(productId){
+    let matchingItem;
 
- if(matchingItem){
-  matchingItem.quantity +=finalSelectedQuantity;
- }else{
-  cart.push({
-  productId  : productId,
-  quantity : finalSelectedQuantity
+    cart.forEach((cartItem)=>{
+      if(productId === cartItem.productId){
+        matchingItem=cartItem;
+      }
+    });
 
- });
+    const QuantitySelector =document.querySelector(`.js-quantity-selector-${productId}`);
+    const finalSelectedQuantity = Number(QuantitySelector.value);
 
- }
-}*/
+    if(matchingItem){
+      matchingItem.quantity +=finalSelectedQuantity;
+    }else{
+      cart.push({
+      productId  : productId,
+      quantity : finalSelectedQuantity
 
-document.querySelector('.js-products-grid').innerHTML = productHTML;
-function updatecartqunatity(){
-  let cartQunatity = 0 ;
- cart.forEach((cartItem)=>{
-  cartQunatity+=cartItem.quantity
+    });
 
-});
+    }
+    }*/
 
+    document.querySelector('.js-products-grid').innerHTML = productHTML;
+    function updatecartqunatity(){
+      let cartQunatity = 0 ;
+    cart.forEach((cartItem)=>{
+      cartQunatity+=cartItem.quantity
 
-document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
-
-
-};
- updatecartqunatity();
-
-document.querySelectorAll('.js-add-to-cart')
-.forEach((button)=>{
-  button.addEventListener('click',() =>{
-  //  console.log( button.dataset.productName);
- const productId =  button.dataset.productId;//this provide the product name which is added to the cart..
-addtocart(productId);
- updatecartqunatity();
+    });
 
 
- //the below code mention that if we add an element twice it will not create an extra object ,  it will just add one more quantity ..
- //the below code is also converted into function to organised the code..
- /*let matchingItem;
-
- cart.forEach((item)=>{
-  if(productId === item.productId){
-    matchingItem=item;
-  }
- });
-
- const QuantitySelector =document.querySelector(`.js-quantity-selector-${productId}`);
- const finalSelectedQuantity = Number(QuantitySelector.value);
+    document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;
 
 
+    };
+    updatecartqunatity();
 
- if(matchingItem){
-  matchingItem.quantity +=finalSelectedQuantity;
- }else{
-  cart.push({
-  productId  : productId,
-  quantity : finalSelectedQuantity
-
- });
-
- }*/
-
-
-//the below code is also converted into function to organised the code..
-/*let cartQunatity = 0 ;
- cart.forEach((item)=>{
-  cartQunatity+=item.quantity
-});
-
-document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;*/
-
- const addedPopup = document.querySelector(`.msg-added-${productId}`);
-addedPopup.classList.add('added-to-cart-visible');
-setInterval(function(){
-   const addedPopup = document.querySelector(`.msg-added-${productId}`);
-addedPopup.classList.remove('added-to-cart-visible');
-},1000);
+    document.querySelectorAll('.js-add-to-cart')
+    .forEach((button)=>{
+      button.addEventListener('click',() =>{
+      //  console.log( button.dataset.productName);
+    const productId =  button.dataset.productId;//this provide the product name which is added to the cart..
+    addtocart(productId);
+    updatecartqunatity();
 
 
-//  console.log(cartQunatity);
-//  console.log(cart);
+    //the below code mention that if we add an element twice it will not create an extra object ,  it will just add one more quantity ..
+    //the below code is also converted into function to organised the code..
+    /*let matchingItem;
+
+    cart.forEach((item)=>{
+      if(productId === item.productId){
+        matchingItem=item;
+      }
+    });
+
+    const QuantitySelector =document.querySelector(`.js-quantity-selector-${productId}`);
+    const finalSelectedQuantity = Number(QuantitySelector.value);
 
 
-  });
-})
+
+    if(matchingItem){
+      matchingItem.quantity +=finalSelectedQuantity;
+    }else{
+      cart.push({
+      productId  : productId,
+      quantity : finalSelectedQuantity
+
+    });
+
+    }*/
 
 
-// document.querySelector('.js-cart-quantity').innerHTML = `${updatecartqunatity()}`;
+    //the below code is also converted into function to organised the code..
+    /*let cartQunatity = 0 ;
+    cart.forEach((item)=>{
+      cartQunatity+=item.quantity
+    });
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQunatity;*/
+
+    const addedPopup = document.querySelector(`.msg-added-${productId}`);
+    addedPopup.classList.add('added-to-cart-visible');
+    setInterval(function(){
+      const addedPopup = document.querySelector(`.msg-added-${productId}`);
+    addedPopup.classList.remove('added-to-cart-visible');
+    },1000);
+
+
+    //  console.log(cartQunatity);
+    //  console.log(cart);
+
+
+      });
+    })
+
+    }
+    
