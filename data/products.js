@@ -62,6 +62,34 @@ console.log( date.toLocaleTimeString());  */
 
   // NOW I AM TRYING TO GET THE PRODUCT FROM BACKEND..
   export let product =[];
+
+
+//this code uses fetch , to make the hhtp request as earlier xmlhttprequest did...
+  export function loadProductFetch(){
+  const Promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+ return response.json();
+  }).then((productData)=>{
+    product = productData.map((productDetails)=>{
+      if(productDetails.type === 'clothing'){
+        return new clothing(productDetails);
+      }
+      return new Product(productDetails);
+
+    });
+    console.log('load product ');
+   
+  })
+  return Promise;
+}
+/*
+loadProductFetch().then(()=>{
+console.log('next step');
+});
+*/
+
+
+
+
   export  function loadProducts(func){
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load' , ()=>{
