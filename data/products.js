@@ -78,7 +78,9 @@ console.log( date.toLocaleTimeString());  */
     });
     console.log('load product ');
    
-  })
+  }).catch(()=>{
+console.log('unexpected error : please try again later');
+  });
   return Promise;
 }
 /*
@@ -103,9 +105,13 @@ console.log('next step');
 console.log('load product ');
 func();
     });
+    xhr.addEventListener('error' , (error)=>{
+    console.log('unexpected error.please try again later.');
+    });
     xhr.open('GET', 'https://supersimplebackend.dev/products');
     xhr.send();
   }
+  
 
 
 
